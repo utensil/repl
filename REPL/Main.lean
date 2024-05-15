@@ -198,6 +198,8 @@ def runCommand (s : Command) : M IO (CommandResponse ⊕ Error) := do
     IO.processInput s.cmd initialCmdState?
   catch ex =>
     return .inr ⟨ex.toString⟩
+  -- messages.forM fun m => do IO.println s!"{m.fileName}|{m.pos}~{m.endPos}|{m.keepFullRange}|--{←m.data.format}"
+  --"{←m.toString} {m.keepFullRange} {←m.data.format}"
   let messages ← messages.mapM fun m => Message.of m
   -- For debugging purposes, sometimes we print out the trees here:
   -- trees.forM fun t => do IO.println (← t.format)
